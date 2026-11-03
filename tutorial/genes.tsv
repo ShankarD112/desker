@@ -1,0 +1,4 @@
+contig	gene_id	start_0based	end_exclusive
+chrGeneA	GeneA	0	260
+chrGeneB	GeneB	0	260
+chrGeneC	GeneC	0	260
