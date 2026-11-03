@@ -4,6 +4,28 @@
 
 Desker is an experimental spatial environment for computational research: an open desk for datasets, scripts, visualizations, notes, artifacts, and hypotheses. The canvas is a view into an underlying provenance-aware analysis graph, not the graph itself. Spatial proximity is not equivalent to a computational dependency.
 
+## Real 100-read FASTQ tutorial (implemented)
+
+Open [tutorial.html](tutorial.html) through the deployed site or serve the repository root:
+
+```sh
+python3 -m http.server 8000
+# Visit http://localhost:8000/tutorial.html
+```
+
+The tutorial reads committed FASTQ and FASTA files, validates FASTQ records, performs *real* forward-strand exact or one-mismatch alignment, and counts reads per synthetic gene contig. It runs fully in the browser and stores branching analysis settings/results in localStorage. The reference and trimming choices are adjustable; runs remain available to select and compare. A standalone standard-library Python implementation reproduces the analysis:
+
+```sh
+python3 tutorial/align.py
+python3 tutorial/align.py --trim
+python3 tutorial/align.py --reference v2
+python3 tutorial/align.py --reference v2 --trim
+```
+
+With zero mismatches, the committed fixtures produce **60, 85, 72, and 97** mapped reads, respectively. In the v2 reference, 15 previously variant reads become mappable but three baseline reads no longer match, yielding 72 net mapped reads before trimming.
+
+**Limitations:** This is a real *toy* aligner operating on a deliberately tiny synthetic genome, not Cell Ranger, STAR, BWA, or a biological RNA-seq workflow. It does not handle reverse-complement mapping, indels, base quality scoring, transcript splicing, realistic multimappers, or expression statistics. Counts are simply uniquely mapped reads per invented contig. Data are intentionally synthetic and contain no animal or human sequencing information.
+
 ## Current prototype
 
 Open `index.html` in a browser. No installation required. Move cards, select and edit objects, add experimental steps, branch existing analyses, open a comparison checklist, and persist the current desk in browser localStorage.
